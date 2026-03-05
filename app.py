@@ -1,4 +1,6 @@
+import speedtest
 from flask import Flask 
+
 app = Flask(__name__)
 
 def speedcheck():
@@ -9,13 +11,13 @@ def speedcheck():
   upload_bps = st.upload()
   ping = st.results.ping
 
-  download_mbs = round(download_bps / 10**6,2)
+  download_mbs = round(download_bps / 10**6, 2)
   upload_mbs = round(upload_bps / 10**6, 2)
-  return{
+  return {
     "download": download_mbs,
     "upload": upload_mbs,
     "ping": ping,
-}
+  }
 
 @app.route('/')
 def index():
@@ -25,5 +27,6 @@ if __name__ == '__main__':
   print("Starting..")
   print("Testing speed... please wait (this takes a few seconds)...")
   results = speedcheck()
-  prinf(f"Speed test done!\nResult: {results}")
+  print(f"Speed test done!\nResult: {results}")
   app.run(debug=True)
+
