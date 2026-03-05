@@ -1,5 +1,5 @@
 import speedtest
-from flask import Flask 
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -21,12 +21,14 @@ def speedcheck():
 
 @app.route('/')
 def index():
-  return "Server is running!"
+  return "Server is running! Go to /test to check your internet speed."
+  
+@app.route('/test')
+def test():
+  result = speedcheck()
+  return jsonify(result)
 
 if __name__ == '__main__':
   print("Starting..")
-  print("Testing speed... please wait (this takes a few seconds)...")
-  results = speedcheck()
-  print(f"Speed test done!\nResult: {results}")
+  print("Server running!"
   app.run(debug=True)
-
